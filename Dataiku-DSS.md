@@ -19,7 +19,7 @@
     + LDAP认证配置
     + 使用代理
     + 迁移操作
-- [DSS概念](DSS-concepts.md)
+- [DSS概念](docs/DSS-concepts.md)
     + 数据集
     + Recipes
     + 构建数据集
@@ -69,7 +69,7 @@
     + 标准图表类型
     + 地理图表 (Beta)
     + 调色板
-- [机器学习](Machine-learning.md)
+- [机器学习](docs/Machine-learning.md)
     + 预测 (监督学习)
     + 聚类 (非监督学习)
     + 特征处理
