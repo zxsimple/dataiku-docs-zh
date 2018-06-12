@@ -23,7 +23,7 @@ Choosing an SQL engine (if your scored dataset is stored in an SQL database and 
 
 The compatibility matrix for all DSS models is the following:
 
-Training engine	Algorithm	Local (Optimized)	Local (Python)	Spark	SQL	 
+|Training engine	|Algorithm|	Local (Optimized)	|Local (Python)|	Spark|	SQL	 |
 Python in-memory	Random forest	Yes	Yes	Yes	Yes (no probas for multiclass)	 
 MLLib	Random forest	Yes	Yes	Yes	Yes (no probas for multiclass)	 
 Python in-memory	Gradient Boosting	Yes	Yes	Yes	Regression only	 

@@ -1,26 +1,24 @@
-# H2O (Sparkling Water)
+#H2O (Sparkling Water)#
 
-Sparkling Water是H2O(http://h2o.ai/)基于Spark的机器学习引擎。
+Sparkling Water是[H2O](http://h2o.ai/)基于Spark的机器学习引擎。
 
 DSS通过在Spark集群上创建H2O集群训练H2O算法，与Spark无缝集成使得用户既可以用传统Spark MLLib，也可以用H2O提供的其他能力。
 
-警告
+> 警告：分布式机器学习的开销是不能忽略的。
+>
+> 如果你的数据是存在内存中，就应考虑使用常规内存机器学习以便在更广泛的的选项和算法上更快地进行训练。
 
-分布式机器学习的开销是不能忽略的。
+- [安装](#安装)
 
-如果你的数据是存在内存中，就应考虑使用常规内存机器学习以便在更广泛的的选项和算法上更快地进行训练。
-
-- 安装
-
-- [使用Sparkling Water](https://doc.dataiku.com/dss/latest/machine_learning/sparkling_water.html#using-sparkling-water)
-- [预测算法](https://doc.dataiku.com/dss/latest/machine_learning/sparkling_water.html#prediction-algorithms)
-- [分类算法](https://doc.dataiku.com/dss/latest/machine_learning/sparkling_water.html#clustering-algorithms)
-- [局限](https://doc.dataiku.com/dss/latest/machine_learning/sparkling_water.html#limitations)
-- [内存需求](https://doc.dataiku.com/dss/latest/machine_learning/sparkling_water.html#memory-requirements)
+- [使用Sparkling Water](#使用Sparkling Water)
+- [预测算法](#预测算法)
+- [分类算法](#分类算法)
+- [局限](#局限)
+- [内存需求](内存需求)
 
 ## 安装
 
-为了使用Sparkling Water首先得要有一个安装好的Spark集群，同时配置DSS集成Spark集群。了解更多关于DSS中Spark，请参考[DSS与Spark]。
+为了使用Sparkling Water首先得要有一个安装好的Spark集群，同时配置DSS集成Spark集群。了解更多关于DSS中Spark，请参考[DSS与Spark](https://doc.dataiku.com/dss/latest/spark/index.html)。
 
 在DSS数据目录汇总运行以下脚本来安装Sparkling Waster：
 
@@ -54,18 +52,14 @@ H2O支持如下聚类算法：
 
 ## 限制
 
-限制与[MLLib限制]相同。
+限制与[MLLib限制](https://doc.dataiku.com/dss/latest/machine_learning/mllib.html#mllib-limitations)相同。
 除此之外，用户需要注意：
 
 - 朴素贝叶斯算法只适用于分类的变量。
-
 - 因为实现的缺陷，H2O的GLM算法不能很好处理未处理的分类变量。建议使用实体模型，它在算法性能效率上有相同的表现，但是没有错误的风险。
-
 - H2O集群的UI(通常通过54321端口范围)将不能访问。
 
-  
-
-## 内存需求
+##内存需求##
 
 不同于MLLib，Sparkling Water要求整个训练数据集都存放在分布式内存中(所有Saprk executor的内存之和)。
 

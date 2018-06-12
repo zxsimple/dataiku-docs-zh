@@ -35,7 +35,7 @@ DSS通过"managed connections"(管控的链接)创建管控数据集，而管控
 - Hadoop HDFS
 - SQL数据库
 - Amazon S3
-- 。。。。。。
+- ......
 
 ## 分区
 >注意：分区在DSS社区版中不可用

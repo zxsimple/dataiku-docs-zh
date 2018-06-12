@@ -1,77 +1,72 @@
-特征处理
+#特征处理#
 
 > 注意：在模型 > 设置 > 特征Tab中对特征处理设置
->
-> 
 
-Note
+DSS中大多数[机器学习引擎](Engines.md)只能处理无缺失值的数值特征。
 
-You can change the settings for feature processing under Models > Settings > Features tab
+DSS允许用户在进行模型训练前指定变量的预处理方法。
 
-Most [machine learning engines](https://doc.dataiku.com/dss/latest/machine_learning/engines.html) in DSS visual machine learning can only process numerical features, with no missing values.
+##角色##
 
-DSS allows users to specify pre-processing of variables before model training.
+特征角色决定在机器学习过程中如何处理模型。
 
-## Roles
+- **拒绝**意思是不适用特征
+- **输入**意思是特征将用于训练模型，要么作为[预测目标](Supervised.md)，要么用于[聚类](Unsupervised.md)
+- **仅用于显示**意思是特征不用于训练模型，但是用于标记模型输出。该角色当前值用于聚类模型。
 
-A feature’s role determines how it’s used during machine learning.
+## 变量类型
 
-- **Reject** means that the feature is not used
-- **Input** means that the feature is used to build a model, either as a potential [predictor for a target](https://doc.dataiku.com/dss/latest/machine_learning/supervised.html)) or for [clustering](https://doc.dataiku.com/dss/latest/machine_learning/unsupervised.html)
-- **Use for display only** means that the feature is not used to build a model, but is used to label model output. This role is currently only used by cluster models.
+特征的变量类型决定在机器学习过程中特征的处理选项。
 
-## Variable type
+- **类别型**变量是枚举列表中的值。对于类别型特征的处理目标是对类别进行编码以确保它可以被作为数值处理。
+- **数值型**变量可以进行加减乘除运算。在有些时候把有限的数值型变量当作类别型变量也是很有用的。
+- **文本型**变量是任意的文本块。如果文本型变量中包含有限的多个值，可以把它看作是类别型变量
 
-A feature’s variable type determines the feature handling options during machine learning.
+###类别型变量处理###
 
-- **Categorical** variables take one of an enumerated list values. The goal of categorical feature handling is to encode the values of a categorical variable so that they can be treated as numeric.
-- **Numerical** variables take values that can be added, subtracted, multiplied, and so on. There are times when it may be useful to treat a numerical variable with a limited number of values as categorical.
-- **Text** variables are arbitrary blocks of text. If a text variable takes a limited number of values, it may be useful to treat it as categorical.
+**类别处理**和**缺失值处理**方法及其控制定义了如何处理类别型变量。
 
-### Categorical variable handling
+- **Dummy-encoding（向量化）**创建一个包含了0/1标机值并且长度与类型长度一致的向量。可以删除其中的一个变量以使得它们不是线性独立的，或者让Dataiku来决定。虚拟编码的数量是有限制的，它是根据类别的最大值，重复最多的行占所占的比例，以及每个类别中最小的样本数量决定的。
+- **用0/1标记来表示是否存在**
+- **影响编码**
+- **特征哈希（对与高基数）**
 
-The **Category handling** and **Missing values** methods, and their related controls, specify how a categorical variable is handled.
+### 数值变量处理
 
-- **Dummy-encoding (vectorization)** creates a vector of 0/1 flags of length equal to the number of categories in the categorical variable. You can choose to drop one of the dummies so that they are not linearly dependent, or let Dataiku decide. There is a limit on the number of dummies, which can be based on a maximum number of categories, the cumulative proportion of rows accounted for by the most popular rows, or a minimum number of samples per category.
-- **Replace by 0/1 flag indicating presence**
-- **Impact-coding**
-- **Feature hashing (for high cardinality)**
+**数值处理**和**缺失值处理**方法及其控制定义了如何处理数值变量。
 
-### Numerical variable handling
+- **保留数值特征**允许在训练前对特征进行缩放，这在某些情况下会提高模型性能。标准缩放可以将特征标准偏差调整为1，平均值调整为0。最小-最大缩放可将特征的最小值调整为0，最大值调整为1。此外，在缩放之后，可以派生出其他特征来输入到模型中，例如sqrt(x)，x^2，...。*如果变量的绝对值存在较大差异，可以对变量进行重新缩放*。
 
-The **Numerical handling** and **Missing values** methods, and their related controls, specify how a numerical variable is handled.
+- **用0/1标记来表示是否存在**
+- **基于阈值的二值化** 将大于或者小于阈值的特征替换为0/1标机值。
+- **使量化**用特征经验分布的分位数替换特征值。
 
-- **Keep as a regular numerical feature** allows for rescaling prior to training, which can improve model performance in some instances. Standard rescaling scales the feature to a standard deviation of one and a mean of zero. Min-max rescaling sets the minimum value of the feature to zero and the max to one. In addition, post-rescaling, you can request that derived features such as sqrt(x), x^2, … be generated and considered in the model. *Rescale numeric variables if there are large differences in the absolute values of the features.*
-- **Replace by 0/1 flag indicating presence**
-- **Binarize based on a threshold** replaces the feature values with a 0/1 flag that indicates whether the value is above or below the specified threshold.
-- **Quantize** replaces the feature values with the quantiles of the feature’s empirical distribution.
+### 文本变量处理
 
-### Text variable handling
+### 缺失值
 
-### Missing values
+处理类别型和数值型特征有多种处理方式。
 
-There are a few choices for handling missing values in categorical and numerical features.
+- **视为是常规值**（仅类别型特征）将缺失值视为一个唯一的类别。这用于结构上缺少不可测量的数据，例如，具有加拿大地址的美国州。
+- **Impute**将缺失值替换为指定的值。这用于处理因随机噪音导致的**随机缺失**数据。
+- **丢弃行**在构建模型是丢弃具有缺失值的行。*避免丢弃行*，除非缺失数据很稀少。
 
-- **Treat as a regular value** (categorical features only) treats missing values as a distinct category. This should be used for **structurally missing** data that are impossible to measure, e.g. the US state for an address in Canada.
-- **Impute…** replaces missing values with the specified value. This should be used for **randomly missing** data that are missing due to random noise.
-- **Drop rows** discards rows with missing values from the model building. *Avoid discarding rows, unless missing data is extremely rare*.
+## 自定义预处理
 
-## Custom Preprocessings
+DSS允许用户定义自定义Python预处理，可以以插件的方式插入用户定义的特征处理代码。这可以通过在特征处理选项中选择“自定义预处理”来完成。实现的方式是在一个类中实现两个方法：
 
-DSS allows to define custom python preprocessings, in order to plug user-generated code which will process a feature. This is done by selection “Custom preprocessing” in the feature handling options. The way to do this is to implement a class with two methods :
-
-```
+```python
 def fit(self, series):
 def transform(self, series):
 ```
 
-Here, series is a pandas Series object representing the feature column. The fit method does not need to return anything, but must modify the object in-place if fitting is necessary. The transform method must return either a pandas DataFrame or a 2-D numpy array or scipy.sparse.csr_matrix containing the preprocessed result. Note that a single processor may output several numerical features, corresponding several columns of the output. If a numpy array or scipy.sparse.csr_matrix is chosen, then the processor should be also have a “names” attribute, containing the list of the output feature names.
+在此处，series是一个表示特征列的pandas series对象。fit方法无需返回值，只需要按需实现数据修改逻辑。transform方法需要返回一个pandas Dataframe或者一个2维numpy数组或者scipy.sparse.csr_matrix来保存预处理结果。注意单个处理器可能返回多个数值特征，这对应于输出的列。如果选择numpy 数组或scipy.sparse.csr_matrix，处理器需要一个“名称”属性，它包含了输出特征的名称列表。
 
-To use your processor in the visual ML UI, you must import it and instantiate it in the code editor, by assigning the processor to the “processor” variable, as follows :
+为在可视化UI中适用自定义处理器，需要在代码编辑器中导入并初始化它，然后赋值给“processor”变量，如下：
 
-```
+```python
 from mymodule import MyProcessor
 processor = MyProcessor()
 ```
 
-As with any python code component, classes must be defined in a file stored in the lib/python folder of the data directory.
+对于任何Python代码组建，类必须定义在文件中并保存在data路径中的lib/python目录下。

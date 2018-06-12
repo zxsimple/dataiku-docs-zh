@@ -1,7 +1,7 @@
-# 预测(监督学习) #
+# 预测（监督学习） #
 预测(监督机器学习)用来预测**目标**变量。例如，用公寓的面积、位置、设施来预测纽约市的房价。价格是公寓的**目标**，面积、位置、设施是预测模型的**特征**。
 
-> [Tutorial 103](https://www.dataiku.com/learn/guide/tutorials/103.html)提供了一个一步步介绍如何创建和部署一个预测模型。 
+> 注意：[Tutorial 103](https://www.dataiku.com/learn/guide/tutorials/103.html)提供了一个一步步介绍如何创建和部署一个预测模型。 
 > 以下内容假定你已经学习过这个向导。
 
 - 在DSS中运行监督学习
@@ -63,7 +63,7 @@ DSS提供两种策略用来拆分训练和验证数据集。
 ### 拆分数据集
 DSS默认随机将数据拆分为训练数据集和测试数据集。训练数据集的百分比占比可以在DSS中设置，标准是80%。
 
-此外，根据DSS[依赖的计算引擎](https://doc.dataiku.com/dss/latest/machine_learning/engines.html)DSS能够随机拆分数据集样本。对于像[Scikit-learn/XGBoost](https://doc.dataiku.com/dss/latest/machine_learning/scikitlearn.html)这样的内存计算引擎来说尤为重要。DSS默认用数据集中的前100000条。
+此外，根据DSS[依赖的计算引擎](Engines.md)DSS能够随机拆分数据集样本。对于像[Scikit-learn/XGBoost](Engines/Sklearn.md)这样的内存计算引擎来说尤为重要。DSS默认用数据集中的前100000条。
 
 #### K-fold交叉测试
 这种方法的另外一种叫法为“K-Fold cross test”，DSS中也用到了。采用k-fold交叉测试，将会把数据集拆分成相同大小的**n**个folds。每个fold当作独立的单个测试集，剩下的**n-1**个fold当作训练集。这种方法会大大增加训练时间(粗略来说是**n**倍)。但是这However, it allows for two interesting features:
@@ -95,7 +95,7 @@ DSS也支持用户显式指定训练集和测试集。如果数据是结构化�
 对于二分类问题，通过选择的评分指标来优化目标分类的可能性阈值。
 
 ## 设置：特征处理
-参见[特征处理](https://doc.dataiku.com/dss/latest/machine_learning/features_handling.html)
+参见[特征处理](Feature-handling.md)
 
 ## 设置：特征生成
 
@@ -119,7 +119,7 @@ DSS用线性或者多项式合并来计算变量之间的关联。生成的特�
 
 DSS支持多种算法训练预测模型。我们建议尝试多种算法后再选择具体模型做预测。
 
-算法依赖与计算引擎，详情参考[机器学习引擎](https://doc.dataiku.com/dss/latest/machine_learning/engines.html)
+算法依赖与计算引擎，详情参考[机器学习引擎](Engines.md)
 
 ## 设置：超参优化
 ### 超参优化
@@ -153,7 +153,7 @@ DSS自动尝试设置对每个值然后保留最好对一组值。这个过程�
 这种方法增加来训练时间(大概是n倍)但是可以在整个训练集上进行训练(因为是有多个评估指标结果所以也降低来不确定性)
 
 > 注意：K-Fold交叉验证是在交叉验证集上优化超参的一种方法。
-
+>
 > 不要与K-Fold交叉测试混淆，后者用于通过测试集在最终评分上评估错误边界。
 
 #### 自定义
