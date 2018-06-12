@@ -4,9 +4,9 @@
 更多资源请参考[Dataiku Learn](https://www.dataiku.com/learn/)。
 
 - 安装DSS
-	+ 安装需求
-	+ 安装DSS新实例
-	+ 升级DSS实例
+  + 安装需求
+  + 安装DSS新实例
+  + 升级DSS实例
     + 更新DSS license
     + 其他安装选项
     + Hadoop和Spark集成配置
@@ -19,7 +19,7 @@
     + LDAP认证配置
     + 使用代理
     + 迁移操作
-- [DSS概念](DSS-concepts/DSS-concepts.md)
+- [DSS概念](DSS-concepts.md)
     + 数据集
     + Recipes
     + 构建数据集
@@ -69,7 +69,7 @@
     + 标准图表类型
     + 地理图表 (Beta)
     + 调色板
-- 机器学习
+- [机器学习](Machine-learning.md)
     + 预测 (监督学习)
     + 聚类 (非监督学习)
     + 特征处理

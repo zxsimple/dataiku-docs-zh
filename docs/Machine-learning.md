@@ -5,7 +5,7 @@
 
 - [预测(监督学习)](MachineLearning/Supervised.md)
 - [聚类(非监督学习)](MachineLearning/Unsupervised.md)
-- [特征处理](MachineLearning/Features-handling.md)
-- [机器学习引擎](MachineLearningEngines.md)
+- [特征处理](MachineLearning/Feature-handling.md)
+- [机器学习引擎](MachineLearning/Engines.md)
 - [评分引擎](MachineLearning/Scoring-engines.md)
 
