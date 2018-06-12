@@ -8,7 +8,7 @@
 
 - [使用](#使用)
 - [分类算法](#分类算法)
-- [回归算法](#回归算法)
+- [聚类算法](#聚类算法)
 - [自定义模型](#自定义模型)
 - [限制](#限制)
 
@@ -57,7 +57,7 @@ DSS 4.2中支持如下Spark MLLib聚类算法：
 
 ## 限制
 
-由于通用[Spark的限制](https://doc.dataiku.com/dss/latest/spark/limitations.html)，MLLib有下面具体限制：
+由于通用[Spark的限制](https://doc.dataiku.com/dss/latest/spark/limitations.html)，MLLib有以下具体限制：
 
 - MLLib中的梯度提升数不会输出每个分类的可能性，所以不能设置阈值，因此一些评估指标(AUC，Log loss，Lift)也是不可用的，同样的一些评估报告(变量重要性，决策图，提升图，ROC曲线)也是不可用的。
 - 一些特征预处理选项也不可用的(可通过其他方法来实现)：

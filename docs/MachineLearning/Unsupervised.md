@@ -4,14 +4,14 @@
 
 > 注意：不同于监督学习，非监督学习步需要**目标**变量。
 
-- [在DSS中运行非监督学习](https://doc.dataiku.com/dss/latest/machine_learning/unsupervised.html#running-unsupervised-machine-learning-in-dss)
-- [抽样](https://doc.dataiku.com/dss/latest/machine_learning/unsupervised.html#sampling)
-- [特征处理](https://doc.dataiku.com/dss/latest/machine_learning/unsupervised.html#features)
-- [特征降维](https://doc.dataiku.com/dss/latest/machine_learning/unsupervised.html#dimensionality-reduction)
-- [异常检测](https://doc.dataiku.com/dss/latest/machine_learning/unsupervised.html#outliers-detection)
-- [算法](https://doc.dataiku.com/dss/latest/machine_learning/unsupervised.html#algorithms)
+- [在DSS中运行非监督学习](#在DSS中运行非监督学习)
+- [抽样](#抽样)
+- [特征处理](#特征处理)
+- [特征降维](#特征降维)
+- [异常检测](#异常检测)
+- [算法](#算法)
 
-## [在DSS中运行非监督学习](#id1)
+## 在DSS中运行非监督学习
 
 按以下步骤在DSS中使用非监督学习：
 
@@ -23,7 +23,7 @@
 - 选择*创建第一个模型*
 - 选择*聚类*
 
-## [抽样](https://doc.dataiku.com/dss/latest/machine_learning/unsupervised.html#id2)
+## 抽样
 
 > 注意：在模型 > 设置 > 抽样下进行抽样设置
 
@@ -31,11 +31,11 @@
 
 如果数据没有加载在内存中，那么你可能希望在抽取的样本上做聚类。可以从最开始抽样数据（最快的方式）或者从整个数据集上随机抽样。
 
-## [特征处理](https://doc.dataiku.com/dss/latest/machine_learning/unsupervised.html#id3)
+## 特征处理
 
 参考 [特征处理](Feature-handling.md)。
 
-## [特征降维](https://doc.dataiku.com/dss/latest/machine_learning/unsupervised.html#id4)
+## 特征降维
 
 > 注意：在模型 > 设置 > 特征降维下进行特征设置
 
@@ -45,7 +45,7 @@ PCA对于聚类最大的好处在于降低算法运行时间，尤其在高纬�
 
 可以选择启用、禁用和两种来进行比较。
 
-## [异常检测](https://doc.dataiku.com/dss/latest/machine_learning/unsupervised.html#id5)
+## 异常检测
 
 > 注意：在模型 > 设置 > 异常检测下对异常检测参数进行设置
 
@@ -61,7 +61,7 @@ DSS通过执行一次预聚类，聚出较大数量的聚类，将其中的小�
 - 删除：删除异常值。
 - 聚类：对所有检测出的异常值创建一个聚类。
 
-## [算法](https://doc.dataiku.com/dss/latest/machine_learning/unsupervised.html#id6)
+## 算法
 
 > 注意：在模型 > 设置 > 算法下进行算法设置
 
