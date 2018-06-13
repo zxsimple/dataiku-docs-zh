@@ -30,7 +30,7 @@
     - [聚类 (非监督学习)](docs/MachineLearning/Unsupervised.md)
     - [特征处理](docs/MachineLearning/Feature-handling.md)
     - [机器学习引擎](docs/MachineLearning/Engines.md)
-    - [评分引擎](MachineLearning/Scoring-engines.md)
+    - [评分引擎](docs/MachineLearning/Scoring-engines.md)
 - 连接数据
     + 支持的链接
     + 上传数据

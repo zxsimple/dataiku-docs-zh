@@ -16,5 +16,5 @@ Currently the translation only include [Machine Learning](docs/Machine-learning.
   - [聚类 (非监督学习)](docs/MachineLearning/Unsupervised.md)
   - [特征处理](docs/MachineLearning/Feature-handling.md)
   - [机器学习引擎](docs/MachineLearning/Engines.md)
-  - [评分引擎](MachineLearning/Scoring-engines.md)
+  - [评分引擎](docs/MachineLearning/Scoring-engines.md)
 
