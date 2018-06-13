@@ -22,7 +22,7 @@ DSS通过在Spark集群上创建H2O集群训练H2O算法，与Spark无缝集成�
 
 在DSS数据目录汇总运行以下脚本来安装Sparkling Waster：
 
-```
+```shell
 ./bin/dssadmin install-h2o-integration
 ```
 
@@ -59,7 +59,7 @@ H2O支持如下聚类算法：
 - 因为实现的缺陷，H2O的GLM算法不能很好处理未处理的分类变量。建议使用实体模型，它在算法性能效率上有相同的表现，但是没有错误的风险。
 - H2O集群的UI(通常通过54321端口范围)将不能访问。
 
-##内存需求##
+##内存需求
 
 不同于MLLib，Sparkling Water要求整个训练数据集都存放在分布式内存中(所有Saprk executor的内存之和)。
 

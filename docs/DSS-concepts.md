@@ -1,4 +1,4 @@
-# DSS concepts #
+# DSS概念 #
 
 >注意：一步步介绍DSS，建议参考[教程](https://www.dataiku.com/learn/portals/tutorials.html)
 
