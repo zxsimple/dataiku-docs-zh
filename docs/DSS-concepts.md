@@ -27,7 +27,7 @@ Data Science Studio支持各种类型的recipes：
 ## 构建数据集
 Recipes和数据集结合创建一张图，在图中定义数据集之间的关系已经如何构建数据集。这个图称为Flow。当输入数据集发生变化的时候依赖管理引擎将保证输出数据集是最新的。
 
-## 管理外部数据集
+## 被管控外部数据集
 Data Science Studio从外部读取的数据叫"external"(外部)数据集。换句话说，当通过DSS recipes创建的数据集是"managed"(管控的)数据集。这意味着DSS拥有数据集之间的管理。例如，如果管控的数据集是SQL数据集，DSS将能够创建删除表，修改表结构。。。。。。
 
 DSS通过"managed connections"(管控的链接)创建管控数据集，而管控链接表示数据存储，可通过以下存储创建管控数据集：
@@ -67,10 +67,10 @@ DSS通过"managed connections"(管控的链接)创建管控数据集，而管控
 - “日志”数据集按天分区，每天上游系统会增加当天分区
 - “丰富化日志”数据集也是按天分区。每天，将会在相同分区的日志数据集分区上计算丰富化日志数据集。
 - “滑动报表”数据集也是每天分区。每天计算之前7天的报表数据。
-![](images/partition-dependencies-1.jpg)
+![](https://doc.dataiku.com/dss/latest/_images/partition-dependencies-1.jpg)
 
 为实现此，我们在“日志”和“丰富化日志”之间申明"equals"依赖，在“丰富化日志”和“滑动报表”之间申明“sliding days”依赖。
-![](images/partition-dependencies-2.jpg)
+![](https://doc.dataiku.com/dss/latest/_images/partition-dependencies-2.jpg)
 
 当DSS计算分区X的“滑动报表”是，它将会计算：
 - “丰富化日志”的分区X, X-1, X-2, ... X-6

@@ -1,102 +1,112 @@
-Scoring engines
-DSS allows you to select various engines in order to perform scoring of your models. This allows for faster execution in some cases.
+# 评分引擎#
 
-Note
+DSS允许在做模型评分的时候选择多种引擎，这会在有些情况下中加速执行。
 
-Scoring engines are only used to actually predict rows. While they are strongly related to training engines, some models trained with one engine can be scored with another.
+> 注意：评分引擎实际上是对数据进行预测。它们与模型训练引擎强相关，有些用某种引擎训练的模型可以被其他引擎进行评分。
 
-The following scoring engines are available:
+有如下可用的评分引擎：
 
-Local (DSS server only) scoring. This engine has two variants: * the Python engine provides wider compatibility but lower performance. * the Optimized scorer provides better performance and is automatically used whenever possible.
-Spark: the scoring is performed in a distributed fashion on a Spark cluster
-SQL: the model is converted to SQL code and executed within a SQL database.
-The selected engine can be adjusted in the scoring recipe editor. Only engines that are compatible with the selected model and input dataset will be available.
+- 本地（仅DSS Server）评分。这种引擎有两种变体：
+  - **Python** 引擎支持更好的兼容性，但是性能较差。
+  - **Optimized** 评分器性能更好，它会被尽可能的应用。
+- Spark：评分是在分布式Spark集群上进行的。
+- SQL：这种模型被转换成SQL代码然后在SQL数据库上执行。
 
-The default settings the following:
+所选在评分引擎可以在评分recipe编辑器上进行重新选择，只有兼容所选模型和输入数据集的评分引擎才会可选。
 
-If the model was trained with Spark MLLib or Sparkling Water, it will be scored with the Spark engine
-If the model was trained with VerticaML, it will be scored with the SQL engine
-Else it will be scored with the Local engine. The optimized engine will be used if available.
-If you do not wish to score your model with the “optimized” engine for some reason, you may select “Force original backend” in the scoring recipe editor to revert to the original backend.
+默认配置如下：
 
-Choosing an SQL engine (if your scored dataset is stored in an SQL database and your model is compatible) will generate a request to score the dataset. Note that this may create very large requests for complex models.
+- 如果模型是在Spark MLlib或者Sparkling Water模型，将会用Spark引擎进行评分。
+- 如果模型是VerticaML模型，将会用SQL引擎进行评分。
+- 否则将会使用本地评分器，将会使用optimized评分引擎。
 
-The compatibility matrix for all DSS models is the following:
+如果因为其他原因不想使用“optimized”引擎对模型评分，可以在recipe编辑器中选择“强制原始后端”来转换到原始后端引擎上。
 
-|Training engine	|Algorithm|	Local (Optimized)	|Local (Python)|	Spark|	SQL	 |
-Python in-memory	Random forest	Yes	Yes	Yes	Yes (no probas for multiclass)	 
-MLLib	Random forest	Yes	Yes	Yes	Yes (no probas for multiclass)	 
-Python in-memory	Gradient Boosting	Yes	Yes	Yes	Regression only	 
-MLLib	Gradient Boosting	Yes	Yes	Yes	Regression only	 
-Python in-memory	Extra Trees (Scikit)	Yes	Yes	Yes	Yes (no probas for multiclass)	 
-Python in-memory	Decision Trees	Yes	Yes	Yes	Yes (no probas for multiclass)	 
-MLLib	Decision Trees	Yes	Yes	Yes	Yes (no probas for multiclass)	 
-Python in-memory	Ordinary Least Squares, Lasso, Ridge	Yes	Yes	Yes	Yes	 
-Python in-memory	SGD	Yes	Yes	Yes	Yes	 
-MLLib	Linear Regression	Yes	Yes	Yes	Yes	 
-Python in-memory	Logistic Regression	Yes	Yes	Yes	Yes	 
-MLLib	Logistic Regression	Yes	Yes	Yes	Yes	 
-Python in-memory	Neural Networks	Yes	Yes	Yes	Yes	 
-Python in-memory	Naive Bayes	No	Yes	No	No	 
-MLLib	Naive Bayes	No	No	Yes	No	 
-Python in-memory	K-nearest-neighbors	No	Yes	No	No	 
-Python in-memory	XGBoost	No	Yes	No	No	 
-Python in-memory	SVM	No	Yes	No	No	 
-Python in-memory	Custom models	No	Yes	No	No	 
-MLLib	Custom models	No	No	Yes	No	 
-Sparkling-Water	All models	No	No	Yes	No	 
-VerticaML	All models	No	No	No	Yes	 
-Note
+选择SQL引擎（如果评分数据存储在SQL数据库中并且模型是兼容的）将会生成评分请求。注意该方式可能会对复杂的模型产生大量请求。
 
-For models trained with Python, the Optimized Local and Spark engines are only available if preprocessing is also compatible.
+DSS模型的所有兼容性矩阵如下：
 
-The following preprocessing options are available for optimized scoring:
+| 训练引擎        | 算法                    | 本地（Optimized） | 本地（Python） | Spark | SQL                  |
+| --------------- | ----------------------- | ----------------- | -------------- | ----- | -------------------- |
+| Python内存      | 随机森林                | 是                | 是             | 是    | 是（多分类无probas） |
+| MLlib           | 随机森林                | 是                | 是             | 是    | 是（多分类无probas） |
+| Python内存      | 梯度提升                | 是                | 是             | 是    | 支持回归             |
+| MLlib           | 梯度提升                | 是                | 是             | 是    | 支持回归             |
+| Python内存      | 极端树（Scikit）        | 是                | 是             | 是    | 是（多分类无probas） |
+| Python内存      | 决策树                  | 是                | 是             | 是    | 是（多分类无probas） |
+| MLlib           | 决策树                  | 是                | 是             | 是    | 是（多分类无probas） |
+| Python内存      | 最小二乘，岭回归，Lasso | 是                | 是             | 是    | 是                   |
+| Python内存      | 随机梯度下降            | 是                | 是             | 是    | 是                   |
+| MLlib           | 线性回归                | 是                | 是             | 是    | 是                   |
+| Python内存      | 逻辑回归                | 是                | 是             | 是    | 是                   |
+| MLlib           | 逻辑回归                | 是                | 是             | 是    | 是                   |
+| Python内存      | 神经网络                | 是                | 是             | 是    | 是                   |
+| Python内存      | 朴素贝叶斯              | 否                | 是             | 否    | 否                   |
+| MLlib           | 朴素贝叶斯              | 否                | 否             | 是    | 否                   |
+| Python内存      | K均值                   | 否                | 是             | 否    | 否                   |
+| Python内存      | XGBoost                 | 否                | 是             | 否    | 否                   |
+| Python内存      | 支持向量机              | 否                | 是             | 否    | 否                   |
+| Python内存      | 用户自定义              | 否                | 是             | 否    | 否                   |
+| MLLib           | 用户自定义              | 否                | 否             | 是    | 否                   |
+| Sparkling-Water | 所有模型                | 否                | 否             | 是    | 否                   |
+| VerticaML       | 搜有模型                | 否                | 否             | 否    | 是                   |
 
-Numerical
-No rescaling
-Rescaling
-Binning
-Derivative features
-Flag missing
-Imputation
-Drop row
-Categorical
-Dummification
-Impact coding
-Flag missing
-Hashing (MLLib only)
-Impute
-Drop row
-Text
-Count vectorization
-TF/IDF vectorization
-Hashing (MLLib)
-Note
+> 注意：对于Python训练的模型，本地Optimized评分器和Spark评分器只有在预处理兼容的情况下可用。
 
-For all models but VerticaML, the SQL engine is only available if preprocessing is also compatible.
+以下预处理选项对optimized评分器可用：
 
-The following preprocessing options are available for SQL scoring :
+- 数值
+  - No rescaling
+  - Rescaling
+  - 分桶
+  - 派生特征
+  - 标记缺失
+  - Imputation
+  - 丢弃行
+- 类别
+  - 哑变量编码
+  - Impact coding
+  - 标记缺失
+  - 哈希（仅MLlib）
+  - Impute
+  - 丢弃行
+- 文本
+- 计数向量化
+- TF/IDF向量化
+- 哈希（MLlib）
 
-Numerical
-No rescaling
-Rescaling
-Binning
-Derivative features
-Flag missing
-Imputation
-Drop row
-Categorical
-Dummification
-Impact coding
-Flag missing
-Imputation
-Drop row
+> 注意：对于除VerticaML以外的其他所有模型，只有预处理兼容的情况下SQL评分引擎才可用。
+
+如下的预处理选择对SQL评分引擎可用：
+
+- 数值
+  - No rescaling
+  - Rescaling
+  - 分桶
+  - 派生特征
+  - 标记缺失
+  - Imputation
+  - 丢弃行
+- 类别
+  - 哑变量编码
+  - Impact coding
+  - 标记缺失
+  - Imputation
+  - 丢弃行
+
+SQL评分引擎不支持文本
+
 Text is not supported
 
-Limitations
-The following limitations exist with SQL scoring:
+## 限制##
 
-Some algorithms may not generate probabilities with SQL scoring (see table above)
-Conditional output columns are not generated with SQL scoring
-Preparation scripts are not compatible with SQL scoring
-Multiclass logistic regression and neural networks require the SQL dialect to support the GREATEST function.
+SQL评分引擎有下面的限制：
+
+某些算法可能不会产生分类可能性probas（参见上表）
+
+SQL评分引擎不会产生条件输出列
+
+数据准备脚本不兼容SQL评分引擎
+
+逻辑回归多分类和神经网络要求SQL方言支持`GREATEST`方法。
+
